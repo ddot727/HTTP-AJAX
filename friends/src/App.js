@@ -67,9 +67,9 @@ class App extends Component {
       .then(res => {
         this.setState({
           activeFriend: null,
-          friend: res.data
+          friends: res.data
         });
-        this.props.history.push('/friendform');
+        this.props.history.push('/');
       })
       .catch(err => {
         console.log(err);
@@ -96,11 +96,15 @@ class App extends Component {
             deleteFriend={this.deleteFriend} 
             setUpdateForm={this.setUpdateForm}
           />} />
-
+ 
         <Route
           exact path="/friendform"
           render={props => 
-          <FriendForm {...props} addFriend={this.addFriend}
+          <FriendForm 
+            {...props} 
+            activeFriend={this.state.activeFriend}
+            addFriend={this.addFriend}
+            updateFriend={this.updateFriend}
           />} />
         
       </div>

@@ -2,8 +2,8 @@ import React from 'react';
 
 
 class FriendForm extends React.Component {
-    state = { 
-        friend: {
+    state =  { 
+        friend: this.props.activeFriend ||{
             name: "",
             age: "",
             email: "",
@@ -26,7 +26,11 @@ class FriendForm extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.addFriend(e, this.state.friend);
+        if (this.props.activeFriend) {
+            this.props.updateFriend(e, this.state.friend);
+          } else {
+            this.props.addFriend(e, this.state.friend);
+          }
         this.setState({
         friend: {
             name: '',
