@@ -35,6 +35,7 @@ class FriendForm extends React.Component {
                         placeholder="Email"
                         value={this.state.friend.email} 
                     />
+                    <button>Submit</button>
                 </form>
             </div>
          );
