@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Friends from './components/Friends';
+import FriendForm from './components/FriendForm';
+import { Route, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
@@ -20,7 +22,28 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Friends {...this.state} />
+        <nav>
+          <h1 className="store-header">My Friend Lists</h1>
+          <div className="nav-links">
+            <NavLink exact to="/">
+              <button>Home</button>
+            </NavLink>
+            <NavLink to="/friendform"><button>Add Friend</button></NavLink>
+          </div>
+        </nav>
+        
+        <Route
+          exact path="/"
+          render={props => 
+          <Friends {...this.state} {...props} 
+          />} />
+
+        <Route
+          exact path="/friendform"
+          render={props => 
+          <FriendForm {...this.state} {...props} 
+          />} />
+        
       </div>
     );
   }
