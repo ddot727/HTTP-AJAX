@@ -10,6 +10,7 @@ class App extends Component {
   constructor() {
     super();
     this.state= {
+      activeFriend: null,
       friends: [],
     }
   }
@@ -40,11 +41,35 @@ class App extends Component {
     e.preventDefault();
     axios
     .delete(`http://localhost:5000/friends/${id}`)
-      .then(res => {
+      .then(res => { 
         this.setState({
           friends: res.data
         });
         this.props.history.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  setUpdateForm = (e, friend) => {
+    e.preventDefault();
+    this.setState({
+      activeFriend: friend
+    });
+    this.props.history.push('/friendform');
+  };
+
+  updateFriend = (e, friend) => {
+    e.preventDefault();
+    axios
+      .put(`http://localhost:5000/friends/${friend.id}`, friend)
+      .then(res => {
+        this.setState({
+          activeFriend: null,
+          friend: res.data
+        });
+        this.props.history.push('/friendform');
       })
       .catch(err => {
         console.log(err);
@@ -67,7 +92,9 @@ class App extends Component {
         <Route
           exact path="/"
           render={props => 
-          <Friends {...this.state} {...props} deleteFriend={this.deleteFriend} 
+          <Friends {...this.state} {...props} 
+            deleteFriend={this.deleteFriend} 
+            setUpdateForm={this.setUpdateForm}
           />} />
 
         <Route
