@@ -22,13 +22,23 @@ class FriendForm extends React.Component {
                 [e.target.name]:value
             }
     }));
-
 };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.addFriend(e, this.state.friend);
+        this.setState({
+        friend: {
+            name: '',
+            age: '',
+            email: '',
+        }});
+    };
     
      render() { 
         return ( 
             <div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <input 
                         type="text"
                         name="name"
