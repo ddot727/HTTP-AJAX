@@ -10,7 +10,22 @@ class FriendForm extends React.Component {
         }
      }
 
-    render() { 
+    changeHandler = e => {
+        e.persist();
+        let value = e.target.value;
+        if (e.target.name === 'age') {
+            value = parseInt(value, 10);
+        }
+        this.setState(prevState => ({
+            friend:{
+                ...prevState.friend,
+                [e.target.name]:value
+            }
+    }));
+
+};
+    
+     render() { 
         return ( 
             <div>
                 <form>
